@@ -1,4 +1,5 @@
 
+# ---------------------------------------------- 2x2 Board ---------------------------------------
 board = [
 
 		[3, 0, 6, 5, 0, 8, 4, 0, 0],
@@ -12,6 +13,8 @@ board = [
 		[0, 0, 5, 2, 0, 6, 3, 0, 0]
 
 ]
+
+# --------------------------------------------- f() for printing board on cmd --------------------------
 
 def print_board(board):
     for i in range(len(board)):
@@ -27,6 +30,8 @@ def print_board(board):
             else:
                 print(str(board[i][j]) + " ", end="")
 
+
+# -------------------------------------f() for finding empty spaces in board ---------------------------------------
 def empty(board):
 	for row in range(len(board)):
 		for col in range(len(board[row])):
@@ -34,6 +39,8 @@ def empty(board):
 				return(row,col)
 
 	return None
+
+# --------------------------------------- f() for Validating the move --------------------------------------------------
 
 def valid_move(board,num,row,col):
 
@@ -58,7 +65,7 @@ def valid_move(board,num,row,col):
 
 	return True
 
-
+# --------------------- Main function to solve full board using recursion ---------------------------------------------
 def doit(board):
 	gate = empty(board)
 	if not gate:
@@ -77,6 +84,8 @@ def doit(board):
 			board[row][col] = 0
 
 	return False
+
+
 
 print_board(board)
 doit(board)
