@@ -1,8 +1,4 @@
 
-# ---------- INFINITE LOOPING
-# ---------- USE RECURSSION
-# ---------- SOlve without lastp LIST
-
 board = [
 
 		[3, 0, 6, 5, 0, 8, 4, 0, 0],
@@ -16,8 +12,6 @@ board = [
 		[0, 0, 5, 2, 0, 6, 3, 0, 0]
 
 ]
-
-lastp = []
 
 def print_board(board):
     for i in range(len(board)):
@@ -65,17 +59,26 @@ def valid_move(board,num,row,col):
 	return True
 
 
-
-row,col = empty(board)
-for i in range(1,10):
-	valid = valid_move(board,i,row,col)
-	if valid == True:
-		print("valid is true")
-		board[row][col] = i # Update board
-		lastp.append((row,col)) # append pos in lastp[]
-		gameover(board)
+def doit(board):
+	gate = empty(board)
+	if not gate:
+		return True
 	else:
-		print("False hai")
-		continue
+		row,col = gate
 
+	for i in range(1,10):
+		valid = valid_move(board,i,row,col)
+		if valid == True:
+			board[row][col] = i
+
+			if doit(board):
+				return True
+
+			board[row][col] = 0
+
+	return False
+
+print_board(board)
+doit(board)
+print("<------------------------------------------>")
 print_board(board)
