@@ -46,44 +46,42 @@ def valid_move(board,num,row,col):
 
 	# ROW VALIDATION
 	for i in range(9):
-		if board[row][i] == num:
+		if board[row][i] == num and col != i:
 			return False
 
 	#COL VALIDATION
 	for i in range(9):
-		if board[i][col] == num:
+		if board[i][col] == num and row != i:
 			return False
 
 	#CUBE VALIDATION
-	row = row % 3 - row
-	col = col % 3 - col
-	
-	for i in range(3):
-		for j in range(3):
-			if (board[row+i][col+j] == num):
+	box_x = col // 3
+	box_y = row // 3
+	for i in range(box_y*3, box_y*3 + 3):
+		for j in range(box_x * 3, box_x*3 + 3):
+			if board[i][j] == num and (i,j) != (row,col):
 				return False
 
 	return True
 
 # --------------------- Main function to solve full board using recursion ---------------------------------------------
 def doit(board):
-	gate = empty(board)
-	if not gate:
-		return True
-	else:
-		row,col = gate
+    find = empty(board)
+    if not find:
+        return True
+    else:
+        row, col = find
 
-	for i in range(1,10):
-		valid = valid_move(board,i,row,col)
-		if valid == True:
-			board[row][col] = i
+    for i in range(1,10):
+        if valid_move(board, i, row, col):
+            board[row][col] = i
 
-			if doit(board):
-				return True
+            if doit(board):
+                return True
 
-			board[row][col] = 0
+            board[row][col] = 0
 
-	return False
+    return False
 
 
 
